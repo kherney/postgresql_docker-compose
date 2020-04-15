@@ -1,11 +1,15 @@
-version: '3'
+version: '3.5'
 services:
-  database:
-    image: "postgres" # use latest official postgres version
+  postgreSQL:
+    container_name: postgress-test
+    image: "postgres:latest"
     env_file:
-      - database.env # configure postgres
+      - database.env
     volumes:
-      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+      - /database-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
 
 volumes:
-  database-data: # named volumes can be managed easier using docker-compose
+  database-data:
+    driver: local
